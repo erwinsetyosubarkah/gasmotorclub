@@ -4,13 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Profile;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminLoginController extends Controller
 {
     public function index() {
-        return view('admin/login');
+        return view('admin/login',[
+            'site_profile' => Profile::first()
+        ]);
     }
 
     public function authenticate(Request $request){

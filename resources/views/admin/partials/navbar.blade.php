@@ -1,6 +1,6 @@
 <!-- Preloader -->
 <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="{{ asset('/') }}vendor/adminlte/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+    <img class="animation__shake rounded-circle" src="{{ asset('storage/'. $site_profile->club_logo) }}" alt="{{ $site_profile->club_name }}" height="60" width="60">
   </div>
 
   <!-- Navbar -->

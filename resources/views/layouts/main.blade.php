@@ -1,3 +1,7 @@
+@php
+    $site_profile = App\Models\Profile::first();
+@endphp
+
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
@@ -5,10 +9,8 @@
   <meta name="description" content="Orbitor,business,company,agency,modern,bootstrap4,tech,software">
   <meta name="author" content="themefisher.com">
 
-  <title>Novena- Health & Care Medical template</title>
-
-  <!-- Favicon -->
-  <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/') }}vendor/novena/images/favicon.ico" />
+  <title>{{ $site_profile->club_name }}</title>
+  <link rel="icon" type="image/x-icon" href="{{ asset('storage/'. $site_profile->club_logo) }}">
 
   <!-- bootstrap.min css -->
   <link rel="stylesheet" href="{{ asset('/') }}vendor/novena/plugins/bootstrap/css/bootstrap.min.css">
@@ -41,7 +43,8 @@
                 <div class="col-lg-4 mr-auto col-sm-6">
                     <div class="widget mb-5 mb-lg-0">
                         <div class="logo mb-4">
-                            <img src="{{ asset('/') }}vendor/novena/images/logo.png" alt="" class="img-fluid">
+                            <img src="{{ asset('storage/'. $site_profile->club_logo) }}" alt="" class="" height="100"> <span class="font-weight-bold" >{{ $site_profile->club_name }}</span>
+                            
                         </div>
                         <p>Tempora dolorem voluptatum nam vero assumenda voluptate, facilis ad eos obcaecati tenetur veritatis eveniet distinctio possimus.</p>
 
@@ -91,17 +94,17 @@
                         <div class="footer-contact-block mb-4">
                             <div class="icon d-flex align-items-center">
                                 <i class="icofont-email mr-3"></i>
-                                <span class="h6 mb-0">Support Available for 24/7</span>
+                                <span class="h6 mb-0">Support Selama 24/7</span>
                             </div>
-                            <h4 class="mt-2"><a href="tel:+23-345-67890">Support@email.com</a></h4>
+                            <h4 class="mt-2"><a href="tel:{{ $site_profile->phone }}">{{ $site_profile->email }}</a></h4>
                         </div>
 
                         <div class="footer-contact-block">
                             <div class="icon d-flex align-items-center">
                                 <i class="icofont-support mr-3"></i>
-                                <span class="h6 mb-0">Mon to Fri : 08:30 - 18:00</span>
+                                <span class="h6 mb-0">Senin s/d Jum'at : 08:30 - 18:00</span>
                             </div>
-                            <h4 class="mt-2"><a href="tel:+23-345-67890">+23-456-6588</a></h4>
+                            <h4 class="mt-2"><a href="tel:{{ $site_profile->phone }}">{{ $site_profile->phone }}</a></h4>
                         </div>
                     </div>
                 </div>
@@ -177,6 +180,34 @@
                 console.error( err.stack );
             } );
         });
+
+        function previmg(src){
+            var modal;
+
+            function removeModal() {
+                modal.remove();
+                $('body').off('keyup.modal-close');
+            }
+            modal = $('<div>').css({
+                background: 'RGBA(0,0,0,.5) url(' + src + ') no-repeat center',
+                backgroundSize: 'contain',
+                width: '100%',
+                height: '100%',
+                position: 'fixed',
+                zIndex: '10000',
+                top: '0',
+                left: '0',
+                cursor: 'zoom-out'
+            }).click(function() {
+                removeModal();
+            }).appendTo('body');
+            //handling ESC
+            $('body').on('keyup.modal-close', function(e) {
+                if (e.key === 'Escape') {
+                removeModal();
+                }
+            });
+        }
     </script>
   </body>
   </html>

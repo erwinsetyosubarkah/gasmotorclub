@@ -1,9 +1,14 @@
+@php
+    $site_profile = App\Models\Profile::first();
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Registration Page (v2)</title>
+  <title>{{ $site_profile->club_name_abbreviation }}</title>
+  <link rel="icon" type="image/x-icon" href="{{ asset('storage/'. $site_profile->club_logo) }}">
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">

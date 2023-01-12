@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -11,7 +12,9 @@ use RealRashid\SweetAlert\Facades\Alert;
 class AdminRegisterController extends Controller
 {
     public function index() {
-        return view('admin/register');
+        return view('admin/register',[
+            'site_profile' => Profile::first()
+        ]);
     }
 
     public function store(Request $request) {

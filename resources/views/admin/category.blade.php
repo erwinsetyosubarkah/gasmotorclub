@@ -59,7 +59,7 @@
                 
                     <div class="form-group">
                         <label for="category_name">Kategori</label>
-                        <input type="text" class="form-control @error('category_name') is-invalid @enderror" id="category_name" name="category_name"  placeholder="Masukan nama club..." minlength="5" required> 
+                        <input type="text" class="form-control @error('category_name') is-invalid @enderror" id="category_name" name="category_name"  placeholder="Masukan nama club..." minlength="5" required value="{{ old('category_name') }}> 
                         @error('category_name')
                             <div class="invalid-feedback">
                               {{ $message }}
@@ -68,7 +68,7 @@
                     </div>
                     <div class="form-group">
                         <label for="category_slug">Slug</label>
-                        <input type="category_slug" class="form-control @error('category_slug') is-invalid @enderror" id="category_slug" name="category_slug"  placeholder="Masukan Slug" minlength="5" required> 
+                        <input type="category_slug" class="form-control @error('category_slug') is-invalid @enderror" id="category_slug" name="category_slug"  placeholder="Masukan Slug" minlength="5" required value="{{ old('category_slug') }}"> 
                         @error('category_slug')
                             <div class="invalid-feedback">
                               {{ $message }}

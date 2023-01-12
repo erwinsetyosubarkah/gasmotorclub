@@ -5,7 +5,10 @@
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
           <div class="card-header text-center">
-            <a href="../../index2.html" class="h1"><b>Admin</b>LTE</a>
+            <div class="d-flex justify-content-center">
+            <img src="{{ asset('storage/'. $site_profile->club_logo) }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3 d-block mb-2" style="opacity: .8" height="80" width="80">
+          </div>
+            <a href="/" class="h3">{{ $site_profile->club_name }}</a>
           </div>
           <div class="card-body">
             <p class="login-box-msg">Halaman Login</p>

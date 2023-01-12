@@ -4,15 +4,15 @@
 			<div class="row align-items-center">
 				<div class="col-lg-6">
 					<ul class="top-bar-info list-inline-item pl-0 mb-0">
-						<li class="list-inline-item"><a href="mailto:support@gmail.com"><i class="icofont-support-faq mr-2"></i>support@novena.com</a></li>
-						<li class="list-inline-item"><i class="icofont-location-pin mr-2"></i>Address Ta-134/A, New York, USA </li>
+						<li class="list-inline-item"><a href="mailto:{{ $site_profile->email }}"><i class="icofont-support-faq mr-2"></i>{{ $site_profile->email }}</a></li>
+						<li class="list-inline-item"><i class="icofont-location-pin mr-2"></i>{{  $site_profile->address }} </li>
 					</ul>
 				</div>
 				<div class="col-lg-6">
 					<div class="text-lg-right top-right-bar mt-2 mt-lg-0">
-						<a href="tel:+23-345-67890" >
+						<a href="tel:{{ $site_profile->phone }}" >
 							<span>Call Now : </span>
-							<span class="h4">823-4565-13456</span>
+							<span class="h4">{{ $site_profile->phone }}</span>
 						</a>
 					</div>
 				</div>
@@ -22,8 +22,9 @@
 	<nav class="navbar navbar-expand-lg navigation shadow" id="navbar">
 		<div class="container">
 		 	 <a class="navbar-brand" href="index.html">
-			  	<img src="{{ asset('/') }}vendor/novena/images/logo.png" alt="" class="img-fluid">
+			  	<img src="{{ asset('storage/'. $site_profile->club_logo) }}" alt="" class="" height="100"> <span class="font-weight-bold" >{{ $site_profile->club_name }}</span>
 			  </a>
+			  
 
 		  	<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarmain" aria-controls="navbarmain" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="icofont-navigation-menu"></span>

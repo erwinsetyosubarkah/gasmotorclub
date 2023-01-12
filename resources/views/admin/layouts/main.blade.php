@@ -1,9 +1,14 @@
+@php
+    $site_profile = App\Models\Profile::first();
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | {{ $page_title }}</title>
+  <title>{{ $site_profile->club_name_abbreviation }} | {{ $page_title }}</title>
+  <link rel="icon" type="image/x-icon" href="{{ asset('storage/'. $site_profile->club_logo) }}">
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -57,7 +62,7 @@
         </div>
 
         <footer class="main-footer">
-          <strong>Copyright &copy; 2014-2021.</strong>
+          <strong>{{ $site_profile->club_name }} - Copyright &copy; 2014-2021.</strong>
           All rights reserved.          
         </footer>
 
@@ -131,6 +136,34 @@
             console.error( err.stack );
           } );
     });
+
+    function previmg(src){
+            var modal;
+
+            function removeModal() {
+                modal.remove();
+                $('body').off('keyup.modal-close');
+            }
+            modal = $('<div>').css({
+                background: 'RGBA(0,0,0,.5) url(' + src + ') no-repeat center',
+                backgroundSize: 'contain',
+                width: '100%',
+                height: '100%',
+                position: 'fixed',
+                zIndex: '10000',
+                top: '0',
+                left: '0',
+                cursor: 'zoom-out'
+            }).click(function() {
+                removeModal();
+            }).appendTo('body');
+            //handling ESC
+            $('body').on('keyup.modal-close', function(e) {
+                if (e.key === 'Escape') {
+                removeModal();
+                }
+            });
+        }
 </script>
 @yield('script') 
 

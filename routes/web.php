@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminRegisterController;
+use App\Http\Controllers\Admin\AdminMyproductController;
+use App\Http\Controllers\Admin\AdminVisidanmisiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,15 +25,27 @@ Route::get('/', [HomeController::class,'index']);
 
 // route Admin
 Route::get('/admin',  [AdminHomeController::class,'index'])->middleware('auth');
-Route::get('/admin-login', [AdminLoginController::class,'index'])->middleware('guest');
+
+Route::get('/admin-login', [AdminLoginController::class,'index'])->name('login')->middleware('guest');
 Route::post('/admin-login', [AdminLoginController::class,'authenticate'])->middleware('guest');
 Route::post('/admin-logout', [AdminLoginController::class,'logout'])->middleware('auth');
 Route::get('/admin-register', [AdminRegisterController::class,'index'])->middleware('guest');
 Route::post('/admin-register', [AdminRegisterController::class,'store'])->middleware('guest');
+
 Route::get('/admin-profile', [AdminProfileController::class,'index'])->middleware('auth');
+Route::post('/admin-profile', [AdminProfileController::class,'edit'])->middleware('auth');
+
+Route::get('/admin-visidanmisi', [AdminVisidanmisiController::class,'index'])->middleware('auth');
+
+Route::get('/admin-myproduct', [AdminMyproductController::class,'index'])->middleware('auth');
+
 Route::get('/admin-category', [AdminCategoryController::class,'index'])->middleware('auth');
 Route::post('/admin-category', [AdminCategoryController::class,'store'])->middleware('auth');
 Route::post('/admin-category/{category}', [AdminCategoryController::class,'destroy'])->middleware('auth');
 Route::get('/admin-category-alldata', [AdminCategoryController::class,'allData'])->middleware('auth');
 Route::get('/admin-category-edit/{category}', [AdminCategoryController::class,'showedit'])->middleware('auth');
 Route::post('/admin-category-edit/{category}', [AdminCategoryController::class,'edit'])->middleware('auth');
+
+
+
+

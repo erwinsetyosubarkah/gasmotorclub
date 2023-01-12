@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminProfileController extends Controller
@@ -17,16 +18,27 @@ class AdminProfileController extends Controller
     }
 
 
-    public function edit(Profile $profile,Request $request) {
+    public function edit(Request $request) {
         $validatedData = $request->validate([
-            'category_name'  => 'required|min:5',
-            'category_slug' => 'required|min:5'
+            'club_name'  => 'required|min:5',
+            'club_name_abbreviation' => 'required',
+            'club_logo' => 'image|file|max:2048'
         ]);
+        
+        //jika ada gambar baru
+        if($request->file('club_logo')){
+            //jika gambar lama isi (ada gambar lama)
+            if($request->old_club_logo){
+                // hapus gambar lama
+                Storage::delete($request->old_club_logo);
+            }
+            $validatedData['club_logo'] = $request->file('club_logo')->store('post-images/profile');
+        }
 
         Profile::where('id',1)
                     ->update($validatedData);
         Alert::success('Berhasil', 'Data kategori berhasil diubah !');
-        return redirect('/admin-category');
+        return redirect('/admin-profile');
         
     }
 }
