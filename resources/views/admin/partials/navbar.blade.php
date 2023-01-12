@@ -29,7 +29,7 @@
           <div class="dropdown-divider"></div>
           <form action="/admin-logout" method="post">
             @csrf
-            <button type="submit" class="btn btn-secondary"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            <button type="submit" class="btn btn-secondary ml-2"><i class="fas fa-sign-out-alt"></i> Logout</button>
           </form>
         </div>
       </li>

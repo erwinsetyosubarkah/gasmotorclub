@@ -58,7 +58,7 @@
             </a>
           </li>          
           <li class="nav-item">
-            <a href="/admin-category" class="nav-link {{ Request::is('admin-category') ? 'active' : '' }}">
+            <a href="/admin-category" class="nav-link {{ Request::is('admin-category','admin-category-edit/*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-layer-group"></i>
               <p>
                 Kategori

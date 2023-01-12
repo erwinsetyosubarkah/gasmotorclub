@@ -112,11 +112,11 @@
 <!-- AdminLTE App -->
 <script src="{{ asset('/') }}vendor/adminlte/dist/js/adminlte.js"></script>
 
-<!-- AdminLTE for demo purposes -->
-<script src="{{ asset('/') }}vendor/adminlte/dist/js/demo.js"></script>
+
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset('/') }}vendor/adminlte/dist/js/pages/dashboard.js"></script>
 @include('sweetalert::alert')
+<script src="{{ asset('/') }}vendor/sweetalert/sweetalert.all.js"></script>
 <script src="{{ asset('/') }}vendor/ckeditor5/ckeditor.js"></script>
 <script>
     $(document).ready(function () {      

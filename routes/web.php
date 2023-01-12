@@ -30,4 +30,8 @@ Route::get('/admin-register', [AdminRegisterController::class,'index'])->middlew
 Route::post('/admin-register', [AdminRegisterController::class,'store'])->middleware('guest');
 Route::get('/admin-profile', [AdminProfileController::class,'index'])->middleware('auth');
 Route::get('/admin-category', [AdminCategoryController::class,'index'])->middleware('auth');
+Route::post('/admin-category', [AdminCategoryController::class,'store'])->middleware('auth');
+Route::post('/admin-category/{category}', [AdminCategoryController::class,'destroy'])->middleware('auth');
 Route::get('/admin-category-alldata', [AdminCategoryController::class,'allData'])->middleware('auth');
+Route::get('/admin-category-edit/{category}', [AdminCategoryController::class,'showedit'])->middleware('auth');
+Route::post('/admin-category-edit/{category}', [AdminCategoryController::class,'edit'])->middleware('auth');

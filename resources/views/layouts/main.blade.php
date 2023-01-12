@@ -162,6 +162,7 @@
     <script src="{{ asset('/') }}vendor/novena/js/script.js"></script>
     <script src="{{ asset('/') }}vendor/novena/js/contact.js"></script>
     @include('sweetalert::alert')
+    <script src="{{ asset('/') }}vendor/sweetalert/sweetalert.all.js"></script>
     <script src="{{ asset('/') }}vendor/ckeditor5/ckeditor.js"></script>
     <script>
         $(document).ready(function () {      
