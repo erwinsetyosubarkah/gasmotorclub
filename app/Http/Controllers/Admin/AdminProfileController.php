@@ -22,7 +22,11 @@ class AdminProfileController extends Controller
         $validatedData = $request->validate([
             'club_name'  => 'required|min:5',
             'club_name_abbreviation' => 'required',
-            'club_logo' => 'image|file|max:2048'
+            'club_logo' => 'image|file|max:2048',
+            'email' => '',
+            'phone' => '',
+            'address' => '',
+            'description' => ''
         ]);
         
         //jika ada gambar baru

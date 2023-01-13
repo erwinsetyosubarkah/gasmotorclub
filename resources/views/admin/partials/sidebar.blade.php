@@ -50,7 +50,7 @@
             </a>
           </li>          
           <li class="nav-item">
-            <a href="/admin-myproduct" class="nav-link {{ Request::is('admin-myproduct') ? 'active' : '' }}">
+            <a href="/admin-myproduct" class="nav-link {{ Request::is('admin-myproduct','admin-myproduct-edit/*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-cube"></i>
               <p>
                 Produk Kami

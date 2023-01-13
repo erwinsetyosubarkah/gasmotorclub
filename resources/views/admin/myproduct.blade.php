@@ -4,12 +4,15 @@
 <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#modalTambah">
     <i class="fas fa-plus"></i>  Tambah
   </button>
-<table id="table-category" class="table table-bordered table-striped">
+<table id="table-myproduct" class="table table-bordered table-striped">
     <thead>
     <tr>
       <th class="text-center">No</th>
-      <th class="text-center">Kategori</th>
-      <th class="text-center">Slug</th>
+      <th class="text-center">Foto Produk</th>
+      <th class="text-center">Nama Produk</th>
+      <th class="text-center">Stok</th>
+      <th class="text-center">Harga</th>
+      <th class="text-center">Deskripsi Produk</th>
       <th class="text-center">Aksi</th>
     </tr>    
     </thead>
@@ -18,14 +21,17 @@
         @php
             $i =1;
         @endphp
-        @foreach ($categories as $item)
+        @foreach ($myproducts as $item)
         <tr>
             <td class="text-center">{{ $i }}</td>
-            <td class="text-center">{{ $item->category_name }}</td>
-            <td class="text-center">{{ $item->category_slug }}</td>
+            <td class="text-center"><img src="{{ asset('storage/'. $item->product_image) }}" alt="{{ $item->product_name }}" class="" height="100"></td>
+            <td class="text-center">{{ $item->product_name }}</td>
+            <td class="text-center">{{ $item->stock }}</td>
+            <td class="text-center">Rp. {{ number_format($item->price,0,',','.') }}</td>
+            <td class="text-center">{{ $item->product_description }}</td>
             <td class="text-center">
-              <a href="/admin-category-edit/{{ $item->id }}" class="badge badge-warning mr-2 ml-2 btn-edit border-0"><i class="fas fa-edit"></i>  Ubah</a>
-              <form action="/admin-category/{{ $item->id }}" method="POST" class="d-inline form-hapus" >
+              <a href="/admin-myproduct-edit/{{ $item->id }}" class="badge badge-warning mr-2 ml-2 btn-edit border-0"><i class="fas fa-edit"></i>  Ubah</a>
+              <form action="/admin-myproduct/{{ $item->id }}" method="POST" class="d-inline form-hapus" >
                 @method('delete')
                 @csrf
                 <input type="hidden" name="_method" >
@@ -48,33 +54,51 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="modalTambahLabel">Tambah Kategori</h5>
+            <h5 class="modal-title" id="modalTambahLabel">Tambah Produk</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
             </div>
-            <form action="/admin-category" method="POST">
+            <form action="/admin-myproduct" method="POST" enctype="multipart/form-data">
               @csrf
             <div class="modal-body">
                 
                     <div class="form-group">
-                        <label for="category_name">Kategori</label>
-                        <input type="text" class="form-control @error('category_name') is-invalid @enderror" id="category_name" name="category_name"  placeholder="Masukan nama club..." minlength="5" required value="{{ old('category_name') }}"> 
-                        @error('category_name')
+                        <label for="product_name">Nama Produk</label>
+                        <input type="text" class="form-control @error('product_name') is-invalid @enderror" id="product_name" name="product_name"  placeholder="Masukan nama produk..." required> 
+                        @error('product_name')
                             <div class="invalid-feedback">
                               {{ $message }}
                             </div>
                         @enderror         
                     </div>
                     <div class="form-group">
-                        <label for="category_slug">Slug</label>
-                        <input type="text" class="form-control @error('category_slug') is-invalid @enderror" id="category_slug" name="category_slug"  placeholder="Masukan Slug" minlength="5" required value="{{ old('category_slug') }}"> 
-                        @error('category_slug')
+                        <label for="stock">Stok</label>
+                        <input type="number" class="form-control @error('stock') is-invalid @enderror" id="stock" name="stock" required> 
+                        @error('stock')
                             <div class="invalid-feedback">
                               {{ $message }}
                             </div>
                         @enderror         
                     </div>
+                    <div class="form-group">
+                        <label for="price">Harga</label>
+                        <input type="number" class="form-control @error('price') is-invalid @enderror" id="price" name="price" required> 
+                        @error('price')
+                            <div class="invalid-feedback">
+                              {{ $message }}
+                            </div>
+                        @enderror         
+                    </div>
+                    <div class="form-group">
+                      <label for="product_image">Foto Produk</label>
+                      <input type="file" class="form-control" id="product_image" name="product_image" onchange="previewImage()">   
+                      <img id='imgPreview' class="mb-2 mb-md-4 shadow-1-strong rounded" style="cursor: zoom-in;" width="100" onClick="zoomImg()" />        
+                    </div>
+                    <div class="form-group">
+                      <label for="product_description">Deskripsi</label>
+                      <textarea class="form-control ckeditor" id="product_description" name="product_description"></textarea>        
+                  </div>
          
                     
             </div>
@@ -92,7 +116,7 @@
 <script>
 
 $(document).ready(function () { 
-    let table_category = $('#table-category').DataTable({
+    let table_myproduct = $('#table-myproduct').DataTable({
       "paging": true,
       "lengthChange": true,
       "searching": true,
@@ -123,9 +147,6 @@ $(document).ready(function () {
         
     });
 
-    $('#category_name').on('keyup',function () {
-      $('#category_slug').val(string_to_slug($(this).val()));
-    });
 
     $('.btn-hapus').click(function(e){
         var form =  $(this).closest("form");
@@ -148,24 +169,20 @@ $(document).ready(function () {
 
   });
 
+  function previewImage(){
+      const image = document.querySelector('#product_image');
+      const imgPreview = document.querySelector('#imgPreview');
+      const oFReader = new FileReader();
+      oFReader.readAsDataURL(image.files[0]);
 
-
-  function string_to_slug (str) {
-    str = str.replace(/^\s+|\s+$/g, ''); // trim
-    str = str.toLowerCase();
-  
-    // remove accents, swap ñ for n, etc
-    var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
-    var to   = "aaaaeeeeiiiioooouuuunc------";
-    for (var i=0, l=from.length ; i<l ; i++) {
-        str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+      oFReader.onload = function(oFREvent) {
+        imgPreview.src = oFREvent.target.result;
+      }
     }
 
-    str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
-        .replace(/\s+/g, '-') // collapse whitespace and replace by -
-        .replace(/-+/g, '-'); // collapse dashes
-
-    return str;
-}
+    function zoomImg(){
+      let src = $('#imgPreview').attr('src');
+      previmg(src);
+    }
 </script>
 @endsection

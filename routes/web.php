@@ -36,8 +36,13 @@ Route::get('/admin-profile', [AdminProfileController::class,'index'])->middlewar
 Route::post('/admin-profile', [AdminProfileController::class,'edit'])->middleware('auth');
 
 Route::get('/admin-visidanmisi', [AdminVisidanmisiController::class,'index'])->middleware('auth');
+Route::post('/admin-visidanmisi', [AdminVisidanmisiController::class,'edit'])->middleware('auth');
 
 Route::get('/admin-myproduct', [AdminMyproductController::class,'index'])->middleware('auth');
+Route::post('/admin-myproduct', [AdminMyproductController::class,'store'])->middleware('auth');
+Route::post('/admin-myproduct/{myproduct}', [AdminMyproductController::class,'destroy'])->middleware('auth');
+Route::get('/admin-myproduct-edit/{myproduct}', [AdminMyproductController::class,'showedit'])->middleware('auth');
+Route::post('/admin-myproduct-edit/{myproduct}', [AdminMyproductController::class,'edit'])->middleware('auth');
 
 Route::get('/admin-category', [AdminCategoryController::class,'index'])->middleware('auth');
 Route::post('/admin-category', [AdminCategoryController::class,'store'])->middleware('auth');

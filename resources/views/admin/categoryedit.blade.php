@@ -14,7 +14,7 @@
   </div>
   <div class="form-group">
       <label for="category_slug">Slug</label>
-      <input type="category_slug" class="form-control @error('category_slug') is-invalid @enderror" id="category_slug" name="category_slug"  placeholder="Masukan Slug" minlength="5" required value="{{ $category->category_slug }}"> 
+      <input type="text" class="form-control @error('category_slug') is-invalid @enderror" id="category_slug" name="category_slug"  placeholder="Masukan Slug" minlength="5" required value="{{ $category->category_slug }}"> 
       @error('category_slug')
           <div class="invalid-feedback">
             {{ $message }}
