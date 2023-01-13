@@ -4,15 +4,16 @@
 <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#modalTambah">
     <i class="fas fa-plus"></i>  Tambah
   </button>
-<table id="table-myproduct" class="table table-bordered table-striped">
+<table id="table-post" class="table table-bordered table-striped">
     <thead>
     <tr>
       <th class="text-center">No</th>
-      <th class="text-center">Foto Produk</th>
-      <th class="text-center">Nama Produk</th>
-      <th class="text-center">Stok</th>
-      <th class="text-center">Harga</th>
-      <th class="text-center">Deskripsi Produk</th>
+      <th class="text-center">Gambar Arikel</th>
+      <th class="text-center">Judul</th>
+      <th class="text-center">Slug</th>
+      <th class="text-center">Artikel</th>
+      <th class="text-center">Kategori</th>
+      <th class="text-center">Author</th>
       <th class="text-center">Aksi</th>
     </tr>    
     </thead>
@@ -21,20 +22,18 @@
         @php
             $i =1;
         @endphp
-        @foreach ($myproducts as $item)
+        @foreach ($posts as $item)
         <tr>
             <td class="text-center">{{ $i }}</td>
-            <td class="text-center"><img src="{{ asset('storage/'. $item->product_image) }}" alt="{{ $item->product_name }}" class="" height="100"></td>
-            <td class="text-center">{{ $item->product_name }}</td>
-            <td class="text-center">{{ $item->stock }}</td>
-            <td class="text-center">Rp. {{ number_format($item->price,0,',','.') }}</td>
-            @php
-                $item->product_description = substr(strip_tags($item->product_description), 0, 100) . '...';
-            @endphp
-            <td class="text-center">{{ $item->product_description }}</td>
+            <td class="text-center"><img src="{{ asset('storage/'. $item->post_image) }}" alt="{{ $item->title }}" class="" height="100"></td>
+            <td class="text-center">{{ $item->title }}</td>
+            <td class="text-center">{{ $item->slug }}</td>
+            <td class="text-center">{{ strip_tags($item->excerpt) }}</td>
+            <td class="text-center">{{ $item->category->category_name }}</td>
+            <td class="text-center">{{ $item->user->name }}</td>
             <td class="text-center">
-              <a href="/admin-myproduct-edit/{{ $item->id }}" class="badge badge-warning mr-2 ml-2 btn-edit border-0"><i class="fas fa-edit"></i>  Ubah</a>
-              <form action="/admin-myproduct/{{ $item->id }}" method="POST" class="d-inline form-hapus" >
+              <a href="/admin-post-edit/{{ $item->id }}" class="badge badge-warning mr-2 ml-2 btn-edit border-0"><i class="fas fa-edit"></i>  Ubah</a>
+              <form action="/admin-post/{{ $item->id }}" method="POST" class="d-inline form-hapus" >
                 @method('delete')
                 @csrf
                 <input type="hidden" name="_method" >
@@ -57,53 +56,59 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="modalTambahLabel">Tambah Produk</h5>
+            <h5 class="modal-title" id="modalTambahLabel">Tambah Artikel</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
             </div>
-            <form action="/admin-myproduct" method="POST" enctype="multipart/form-data">
+            <form action="/admin-post" method="POST" enctype="multipart/form-data">
               @csrf
             <div class="modal-body">
                 
                     <div class="form-group">
-                        <label for="product_name">Nama Produk</label>
-                        <input type="text" class="form-control @error('product_name') is-invalid @enderror" id="product_name" name="product_name"  placeholder="Masukan nama produk..." required value="{{ old('product_name') }}"> 
-                        @error('product_name')
+                        <label for="title">Judul</label>
+                        <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title"  placeholder="Masukan nama produk..." required value="{{ old('title') }}"> 
+                        @error('title')
                             <div class="invalid-feedback">
                               {{ $message }}
                             </div>
                         @enderror         
                     </div>
                     <div class="form-group">
-                        <label for="stock">Stok</label>
-                        <input type="number" class="form-control @error('stock') is-invalid @enderror" id="stock" name="stock" required value="{{ old('stock') }}"> 
-                        @error('stock')
+                        <label for="slug">Slug</label>
+                        <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" required value="{{ old('slug') }}" placeholder="Masukan slug..."> 
+                        @error('slug')
                             <div class="invalid-feedback">
                               {{ $message }}
                             </div>
                         @enderror         
                     </div>
                     <div class="form-group">
-                        <label for="price">Harga</label>
-                        <input type="number" class="form-control @error('price') is-invalid @enderror" id="price" name="price" required value="{{ old('price') }}"> 
-                        @error('price')
+                        <label for="category_id">Kategori</label>
+                        <select name="category_id" id="category_id" class="form-control @error('category_id') is-invalid @enderror">
+                          @foreach ($categories as $category)
+                            @if(old('category_id') ==       $category->id)
+                              <option value="{{ $category->id }}" selected>{{ $category->category_name }}</option>
+                            @else
+                              <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                            @endif                            
+                          @endforeach
+                        </select>                        
+                        @error('category_id')
                             <div class="invalid-feedback">
                               {{ $message }}
                             </div>
                         @enderror         
                     </div>
                     <div class="form-group">
-                      <label for="product_image">Foto Produk</label>
-                      <input type="file" class="form-control" id="product_image" name="product_image" onchange="previewImage()">   
+                      <label for="post_image">Foto</label>
+                      <input type="file" class="form-control" id="post_image" name="post_image" onchange="previewImage()">   
                       <img id='imgPreview' class="mb-2 mb-md-4 shadow-1-strong rounded" style="cursor: zoom-in;" width="100" onClick="zoomImg()" />        
                     </div>
                     <div class="form-group">
-                      <label for="product_description">Deskripsi</label>
-                      <textarea class="form-control ckeditor" id="product_description" name="product_description">{{ old('product_description') }}</textarea>        
-                  </div>
-         
-                    
+                      <label for="body">Artikel</label>
+                      <textarea class="form-control ckeditor" id="body" name="body">{{ old('body') }}</textarea>        
+                    </div>     
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -119,7 +124,7 @@
 <script>
 
 $(document).ready(function () { 
-    let table_myproduct = $('#table-myproduct').DataTable({
+    let table_post = $('#table-post').DataTable({
       "paging": true,
       "lengthChange": true,
       "searching": true,
@@ -149,7 +154,10 @@ $(document).ready(function () {
         }
         
     });
-
+    
+    $('#title').on('keyup',function () {
+      $('#slug').val(string_to_slug($(this).val()));
+    });
 
     $('.btn-hapus').click(function(e){
         var form =  $(this).closest("form");
@@ -173,7 +181,7 @@ $(document).ready(function () {
   });
 
   function previewImage(){
-      const image = document.querySelector('#product_image');
+      const image = document.querySelector('#post_image');
       const imgPreview = document.querySelector('#imgPreview');
       const oFReader = new FileReader();
       oFReader.readAsDataURL(image.files[0]);

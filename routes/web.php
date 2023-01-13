@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\AdminHomeController;
+use App\Http\Controllers\Admin\AdminPostController;
+use App\Http\Controllers\Admin\AdminEventController;
 use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\AdminCategoryController;
@@ -56,6 +58,12 @@ Route::post('/admin-post', [AdminPostController::class,'store'])->middleware('au
 Route::post('/admin-post/{post}', [AdminPostController::class,'destroy'])->middleware('auth');
 Route::get('/admin-post-edit/{post}', [AdminPostController::class,'showedit'])->middleware('auth');
 Route::post('/admin-post-edit/{post}', [AdminPostController::class,'edit'])->middleware('auth');
+
+Route::get('/admin-event', [AdminEventController::class,'index'])->middleware('auth');
+Route::post('/admin-event', [AdminEventController::class,'store'])->middleware('auth');
+Route::post('/admin-event/{event}', [AdminEventController::class,'destroy'])->middleware('auth');
+Route::get('/admin-event-edit/{event}', [AdminEventController::class,'showedit'])->middleware('auth');
+Route::post('/admin-event-edit/{event}', [AdminEventController::class,'edit'])->middleware('auth');
 
 
 

@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Post;
+use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Category;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -22,13 +23,15 @@ class AdminPostController extends Controller
     public function store(Request $request) {
         $validatedData = $request->validate([
             'title'  => 'required|min:5',
-            'user_id' => 'required',
             'category_id' => 'required',
             'slug' => 'required|min:5|unique:posts',
-            'excerpt' => 'required',
             'body' => 'required',
             'post_image' => 'image|file|max:2048|required'
         ]);
+
+        //get user id login
+        $validatedData['user_id'] = auth()->user()->id;
+        $validatedData['excerpt'] = '<p>'.Str::limit(strip_tags($request->body),100,'...').'</p>';
 
         //jika ada gambar baru
         if($request->file('post_image')){
@@ -57,7 +60,7 @@ class AdminPostController extends Controller
     public function showedit(Post $post) {
   
         return view('admin/postedit',[
-            'page_title' => 'Ubah Produk',
+            'page_title' => 'Ubah Artikel',
             'post' => Post::find($post->id),
             'categories' => Category::all()
         ]);
@@ -67,13 +70,15 @@ class AdminPostController extends Controller
     public function edit(Post $post,Request $request) {
         $validatedData = $request->validate([
             'title'  => 'required|min:5',
-            'user_id' => 'required',
             'category_id' => 'required',
-            'slug' => 'required|min:5|unique:posts',
-            'excerpt' => 'required',
+            'slug' => 'required|min:5',
             'body' => 'required',
             'post_image' => 'image|file|max:2048|required'
         ]);
+
+        //get user id login
+        $validatedData['user_id'] = auth()->user()->id;
+        $validatedData['excerpt'] = '<p>'.Str::limit(strip_tags($request->body),100,'...').'</p>';
 
         //jika ada gambar baru
         if($request->file('post_image')){
@@ -84,7 +89,7 @@ class AdminPostController extends Controller
             }
             $validatedData['post_image'] = $request->file('post_image')->store('post-images/post');
         }
-
+        
         Post::where('id',$post->id)
                     ->update($validatedData);
         Alert::success('Berhasil', 'Data artikel berhasil diubah !');

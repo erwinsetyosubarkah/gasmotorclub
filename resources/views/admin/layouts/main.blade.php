@@ -135,35 +135,55 @@
           .catch( err => {
             console.error( err.stack );
           } );
+
     });
 
     function previmg(src){
-            var modal;
+        var modal;
 
-            function removeModal() {
-                modal.remove();
-                $('body').off('keyup.modal-close');
-            }
-            modal = $('<div>').css({
-                background: 'RGBA(0,0,0,.5) url(' + src + ') no-repeat center',
-                backgroundSize: 'contain',
-                width: '100%',
-                height: '100%',
-                position: 'fixed',
-                zIndex: '10000',
-                top: '0',
-                left: '0',
-                cursor: 'zoom-out'
-            }).click(function() {
-                removeModal();
-            }).appendTo('body');
-            //handling ESC
-            $('body').on('keyup.modal-close', function(e) {
-                if (e.key === 'Escape') {
-                removeModal();
-                }
-            });
+        function removeModal() {
+            modal.remove();
+            $('body').off('keyup.modal-close');
         }
+        modal = $('<div>').css({
+            background: 'RGBA(0,0,0,.5) url(' + src + ') no-repeat center',
+            backgroundSize: 'contain',
+            width: '100%',
+            height: '100%',
+            position: 'fixed',
+            zIndex: '10000',
+            top: '0',
+            left: '0',
+            cursor: 'zoom-out'
+        }).click(function() {
+            removeModal();
+        }).appendTo('body');
+        //handling ESC
+        $('body').on('keyup.modal-close', function(e) {
+            if (e.key === 'Escape') {
+            removeModal();
+            }
+        });
+    }
+
+    function string_to_slug (str) {
+        str = str.replace(/^\s+|\s+$/g, ''); // trim
+        str = str.toLowerCase();
+      
+        // remove accents, swap ñ for n, etc
+        var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
+        var to   = "aaaaeeeeiiiioooouuuunc------";
+        for (var i=0, l=from.length ; i<l ; i++) {
+            str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+        }
+
+        str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+            .replace(/\s+/g, '-') // collapse whitespace and replace by -
+            .replace(/-+/g, '-'); // collapse dashes
+
+        return str;
+    }
+
 </script>
 @yield('script') 
 

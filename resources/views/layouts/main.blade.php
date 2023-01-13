@@ -179,6 +179,7 @@
             .catch( err => {
                 console.error( err.stack );
             } );
+
         });
 
         function previmg(src){

@@ -68,13 +68,13 @@
 
           <li class="nav-header">KONTEN WEBSITE</li>
           <li class="nav-item">
-            <a href="iframe.html" class="nav-link">
+            <a href="/admin-post" class="nav-link {{ Request::is('admin-post','admin-post-edit/*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-newspaper"></i>
               <p>Artikel</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="https://adminlte.io/docs/3.1/" class="nav-link">
+            <a href="/admin-event" class="nav-link {{ Request::is('admin-event','admin-event-edit/*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-calendar"></i>
               <p>Event</p>
             </a>

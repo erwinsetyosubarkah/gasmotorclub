@@ -33,7 +33,8 @@
   <div class="form-group">
     <label for="product_image">Foto Produk</label>
     <input type="file" class="form-control" id="product_image" name="product_image" onchange="previewImage()">   
-    <img src='{{ asset('storage/' . $myproduct->product_image) }}' id='imgPreview' class="mb-2 mb-md-4 shadow-1-strong rounded" style="cursor: zoom-in;" width="100" onClick="zoomImg()" />        
+    <img src='{{ asset('storage/' . $myproduct->product_image) }}' id='imgPreview' class="mb-2 mb-md-4 shadow-1-strong rounded" style="cursor: zoom-in;" width="100" onClick="zoomImg()" /> 
+    <input type="hidden" name="old_product_image" value="{{ $myproduct->product_image }}">        
   </div>
   <div class="form-group">
     <label for="product_description">Deskripsi</label>
