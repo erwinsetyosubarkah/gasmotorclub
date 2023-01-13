@@ -51,6 +51,12 @@ Route::get('/admin-category-alldata', [AdminCategoryController::class,'allData']
 Route::get('/admin-category-edit/{category}', [AdminCategoryController::class,'showedit'])->middleware('auth');
 Route::post('/admin-category-edit/{category}', [AdminCategoryController::class,'edit'])->middleware('auth');
 
+Route::get('/admin-post', [AdminPostController::class,'index'])->middleware('auth');
+Route::post('/admin-post', [AdminPostController::class,'store'])->middleware('auth');
+Route::post('/admin-post/{post}', [AdminPostController::class,'destroy'])->middleware('auth');
+Route::get('/admin-post-edit/{post}', [AdminPostController::class,'showedit'])->middleware('auth');
+Route::post('/admin-post-edit/{post}', [AdminPostController::class,'edit'])->middleware('auth');
+
 
 
 
