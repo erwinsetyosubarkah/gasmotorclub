@@ -19,7 +19,7 @@ class ArtikelController extends Controller
         return view('artikel',[
             'page_title' => 'Artikel',
             'profile' => Profile::first(),
-            'artikels' => $artikels->paginate(10)
+            'artikels' => $artikels->paginate(5)
         ]);
     }
 

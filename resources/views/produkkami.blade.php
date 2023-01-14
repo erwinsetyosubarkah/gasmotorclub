@@ -33,6 +33,9 @@
                                         <div class="content">
                                             <h4 class="mt-4 mb-2 title-color"><a href="/produkkami/{{ $item->id }}">{{ $item->product_name }}</a></h4>
                                             <small class=""> <strong> Stock : {{ $item->stock }}</strong></small>
+                                            @php
+                                                $item->product_description = substr(strip_tags($item->product_description), 0, 100) . '...';
+                                            @endphp
                                             <small class="float-right"><strong> Harga : Rp. {{ number_format($item->price,0,',','.') }}</strong></small>
                                             <p class="mb-4 mt-2">{!! $item->product_description !!}</p>
                                         </div>

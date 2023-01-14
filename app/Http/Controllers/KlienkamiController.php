@@ -19,7 +19,7 @@ class KlienkamiController extends Controller
         return view('klienkami',[
             'page_title' => 'Klien Kami',
             'profile' => Profile::first(),
-            'clients' => $clients->paginate(10)
+            'clients' => $clients->paginate(5)
         ]);
     }
 

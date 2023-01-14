@@ -19,7 +19,7 @@ class EventController extends Controller
         return view('event',[
             'page_title' => 'Event',
             'profile' => Profile::first(),
-            'events' => $events->paginate(10)
+            'events' => $events->paginate(5)
         ]);
     }
 

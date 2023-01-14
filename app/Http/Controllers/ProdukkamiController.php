@@ -19,7 +19,7 @@ class ProdukkamiController extends Controller
         return view('produkkami',[
             'page_title' => 'Produk Kami',
             'profile' => Profile::first(),
-            'produkkami' => $produkkami->paginate(10)
+            'produkkami' => $produkkami->paginate(5)
         ]);
     }
 

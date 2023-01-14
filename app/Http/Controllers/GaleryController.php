@@ -19,7 +19,7 @@ class GaleryController extends Controller
         return view('galery',[
             'page_title' => 'Galery Foto',
             'profile' => Profile::first(),
-            'galeries' => $galeries->paginate(10)
+            'galeries' => $galeries->paginate(5)
         ]);
     }
 
