@@ -21,7 +21,7 @@
 	</div>
 	<nav class="navbar navbar-expand-lg navigation shadow" id="navbar">
 		<div class="container">
-		 	 <a class="navbar-brand" href="index.html">
+		 	 <a class="navbar-brand" href="/">
 			  	<img src="{{ asset('storage/'. $site_profile->club_logo) }}" alt="" class="" height="100"> <span class="font-weight-bold" >{{ $site_profile->club_name }}</span>
 			  </a>
 			  
@@ -33,21 +33,21 @@
 		  <div class="collapse navbar-collapse" id="navbarmain">
 			<ul class="navbar-nav ml-auto">
 			  <li class="nav-item active">
-				<a class="nav-link" href="index.html">Home</a>
+				<a class="nav-link" href="/">Home</a>
 			  </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="department.html" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile Club <i class="icofont-thin-down"></i></a>
                 <ul class="dropdown-menu" aria-labelledby="dropdown02">
-                    <li><a class="dropdown-item" href="department.html">Profile</a></li>
-                    <li><a class="dropdown-item" href="department-single.html">Visi dan Misi</a></li>
-                    <li><a class="dropdown-item" href="department-single.html">Produk Kami</a></li>
-                    <li><a class="dropdown-item" href="department-single.html">Kontak Kami</a></li>
+                    <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                    <li><a class="dropdown-item" href="/visidanmisi">Visi dan Misi</a></li>
+                    <li><a class="dropdown-item" href="/produkkami">Produk Kami</a></li>
+                    <li><a class="dropdown-item" href="/kontakkami">Kontak Kami</a></li>
                 </ul>
               </li>
-			   <li class="nav-item"><a class="nav-link" href="about.html">Artikel</a></li>
-			    <li class="nav-item"><a class="nav-link" href="service.html">Event</a></li>
-			    <li class="nav-item"><a class="nav-link" href="service.html">Galery Foto</a></li>
-			    <li class="nav-item"><a class="nav-link" href="service.html">Klien Kami</a></li>
+			   <li class="nav-item"><a class="nav-link" href="/artikel">Artikel</a></li>
+			    <li class="nav-item"><a class="nav-link" href="/event">Event</a></li>
+			    <li class="nav-item"><a class="nav-link" href="/galery">Galery Foto</a></li>
+			    <li class="nav-item"><a class="nav-link" href="/klienkami">Klien Kami</a></li>
 			@auth
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="blog-sidebar.html" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i> Selamat Datang, {{ auth()->user()->name }} <i class="icofont-thin-down"></i></a>

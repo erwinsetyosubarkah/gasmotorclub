@@ -26,6 +26,19 @@
           <input type="email" class="form-control" id="email" name="email"  placeholder="Masukan email contoh : example@dmail.com" value="{{ $profile->email }}">          
         </div>
         <div class="form-group">
+          <label for="leader_name">Nama Ketua</label>
+          <input type="text" class="form-control @error('leader_name') is-invalid @enderror" id="leader_name" name="leader_name"  placeholder="Masukan Nama Ketua..." value="{{ $profile->leader_name }}" required>
+          @error('leader_name')
+              <div class="invalid-feedback">
+                {{ $message }}
+              </div>
+          @enderror           
+        </div>
+        <div class="form-group">
+          <label for="leader_email">Email Ketua</label>
+          <input type="email" class="form-control" id="leader_email" name="leader_email"  placeholder="Masukan email contoh : example@dmail.com" value="{{ $profile->leader_email }}">          
+        </div>
+        <div class="form-group">
           <label for="phone">Telephone / HP</label>
           <input type="tel" class="form-control" id="phone" name="phone"  placeholder="Masukan nomor telpon atau HP ..." value="{{ $profile->phone }}">          
         </div>
@@ -40,7 +53,11 @@
             <textarea class="form-control" id="address" name="address" cols="30" rows="2">{{ $profile->address }}</textarea>        
         </div>
         <div class="form-group">
-            <label for="description">Deskripsi</label>
+            <label for="short_description">Deskripsi Singkat</label>
+            <textarea class="form-control" id="short_description" name="short_description" maxlength="100">{{ $profile->short_description }}</textarea>        
+        </div>
+        <div class="form-group">
+            <label for="description">Deskripsi Lengkap</label>
             <textarea class="form-control ckeditor" id="description" name="description">{{ $profile->description }}</textarea>        
         </div>
         

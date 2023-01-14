@@ -11,10 +11,15 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{ asset('/') }}vendor/adminlte/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          @if (auth()->user()->photo == '')
+            <img src="{{ asset('/') }}vendor/adminlte/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+              
+          @else
+            <img src="{{ asset('storage/'. auth()->user()->photo) }}" class="img-circle elevation-2" alt="User Image">
+          @endif
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">{{ auth()->user()->name }}</a>
         </div>
       </div>
 
@@ -32,6 +37,7 @@
               </p>
             </a>
           </li>  
+          @can('admin')
           <li class="nav-header">PENGATURAN</li>
           <li class="nav-item">
             <a href="/admin-profile" class="nav-link {{ Request::is('admin-profile') ? 'active' : '' }}">
@@ -65,28 +71,36 @@
               </p>
             </a>
           </li>          
+          @endcan
 
-          <li class="nav-header">KONTEN WEBSITE</li>
+
+          <li class="nav-header">KONTEN WEBSITE</li>          
           <li class="nav-item">
             <a href="/admin-post" class="nav-link {{ Request::is('admin-post','admin-post-edit/*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-newspaper"></i>
               <p>Artikel</p>
             </a>
           </li>
+
+          @can('admin')
           <li class="nav-item">
             <a href="/admin-event" class="nav-link {{ Request::is('admin-event','admin-event-edit/*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-calendar"></i>
               <p>Event</p>
             </a>
           </li>
+          @endcan
+
           <li class="nav-item">
-            <a href="https://adminlte.io/docs/3.1/" class="nav-link">
+            <a href="/admin-galery" class="nav-link {{ Request::is('admin-galery','admin-galery-edit/*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-images"></i>
               <p>Galery Foto</p>
             </a>
           </li>
+
+          @can('admin')
           <li class="nav-item">
-            <a href="https://adminlte.io/docs/3.1/" class="nav-link">
+            <a href="/admin-myclient" class="nav-link {{ Request::is('admin-myclient','admin-myclient-edit/*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-user-tie"></i>
               <p>Klien Kami</p>
             </a>
@@ -94,12 +108,12 @@
 
           <li class="nav-header">MANAGEMEN USER</li>
           <li class="nav-item">
-            <a href="iframe.html" class="nav-link">
+            <a href="/admin-user" class="nav-link {{ Request::is('admin-user','admin-user-edit/*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-users"></i>
               <p>Users</p>
             </a>
           </li>
-          
+          @endcan
 
         </ul>
       </nav>

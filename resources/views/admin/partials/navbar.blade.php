@@ -25,8 +25,8 @@
           <i class="fas fa-user"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-          <a href="#" class="dropdown-item"><i class="fas fa-cog mr-1"></i> Edit</a>
-          <div class="dropdown-divider"></div>
+          {{-- <a href="#" class="dropdown-item"><i class="fas fa-cog mr-1"></i> Edit</a>
+          <div class="dropdown-divider"></div> --}}
           <form action="/admin-logout" method="post">
             @csrf
             <button type="submit" class="btn btn-secondary ml-2"><i class="fas fa-sign-out-alt"></i> Logout</button>

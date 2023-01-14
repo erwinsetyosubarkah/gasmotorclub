@@ -73,7 +73,7 @@ class AdminPostController extends Controller
             'category_id' => 'required',
             'slug' => 'required|min:5',
             'body' => 'required',
-            'post_image' => 'image|file|max:2048|required'
+            'post_image' => 'image|file|max:2048'
         ]);
 
         //get user id login

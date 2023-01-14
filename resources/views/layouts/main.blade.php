@@ -1,5 +1,7 @@
 @php
     $site_profile = App\Models\Profile::first();
+    $categories = App\Models\Category::all();
+    $events = App\Models\Event::all();
 @endphp
 
 <!DOCTYPE html>
@@ -46,7 +48,7 @@
                             <img src="{{ asset('storage/'. $site_profile->club_logo) }}" alt="" class="" height="100"> <span class="font-weight-bold" >{{ $site_profile->club_name }}</span>
                             
                         </div>
-                        <p>Tempora dolorem voluptatum nam vero assumenda voluptate, facilis ad eos obcaecati tenetur veritatis eveniet distinctio possimus.</p>
+                        {!! $site_profile->short_description !!}
 
                         <ul class="list-inline footer-socials mt-4">
                             <li class="list-inline-item"><a href="https://www.facebook.com/themefisher"><i class="icofont-facebook"></i></a></li>
@@ -61,12 +63,10 @@
                         <h4 class="text-capitalize mb-3">Kategori Artikel</h4>
                         <div class="divider mb-4"></div>
 
-                        <ul class="list-unstyled footer-menu lh-35">
-                            <li><a href="#">Surgery </a></li>
-                            <li><a href="#">Wome's Health</a></li>
-                            <li><a href="#">Radiology</a></li>
-                            <li><a href="#">Cardioc</a></li>
-                            <li><a href="#">Medicine</a></li>
+                        <ul class="list-unstyled footer-menu lh-35">       
+                            @foreach ($categories as $item)                                
+                                <li><a href="#">{{ $item->category_name }} </a></li>
+                            @endforeach                     
                         </ul>
                     </div>
                 </div>
@@ -77,11 +77,9 @@
                         <div class="divider mb-4"></div>
 
                         <ul class="list-unstyled footer-menu lh-35">
-                            <li><a href="#">Terms & Conditions</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Company Support </a></li>
-                            <li><a href="#">FAQuestions</a></li>
-                            <li><a href="#">Company Licence</a></li>
+                            @foreach ($events as $item)                                
+                                <li><a href="#">{{ $item->event_title }} </a></li>
+                            @endforeach 
                         </ul>
                     </div>
                 </div>
@@ -180,6 +178,8 @@
                 console.error( err.stack );
             } );
 
+            $('.carousel').carousel()
+
         });
 
         function previmg(src){
@@ -210,6 +210,7 @@
             });
         }
     </script>
+    @yield('script') 
   </body>
   </html>
    

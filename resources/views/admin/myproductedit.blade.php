@@ -6,7 +6,7 @@
   <div class="form-group">
       <label for="product_name">Nama Produk</label>
       <input type="text" class="form-control @error('product_name') is-invalid @enderror" id="product_name" name="product_name"  placeholder="Masukan nama produk..." minlength="5" required value="{{ $myproduct->product_name }}"> 
-      @error('myproduct_name')
+      @error('product_name')
           <div class="invalid-feedback">
             {{ $message }}
           </div>

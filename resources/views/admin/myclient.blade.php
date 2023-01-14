@@ -4,14 +4,14 @@
 <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#modalTambah">
     <i class="fas fa-plus"></i>  Tambah
   </button>
-<table id="table-event" class="table table-bordered table-striped">
+<table id="table-myclient" class="table table-bordered table-striped">
     <thead>
     <tr>
       <th class="text-center">No</th>
-      <th class="text-center">Gambar Event</th>
-      <th class="text-center">Nama Event</th>
-      <th class="text-center">Tanggal</th>
-      <th class="text-center">Deskripsi</th>
+      <th class="text-center">Foto</th>
+      <th class="text-center">Nama Klien</th>
+      <th class="text-center">Perusahaan</th>
+      <th class="text-center">Alamat</th>
       <th class="text-center">Aksi</th>
     </tr>    
     </thead>
@@ -20,22 +20,19 @@
         @php
             $i =1;
         @endphp
-        @foreach ($events as $item)
+        @foreach ($myclients as $item)
         <tr>
             <td class="text-center">{{ $i }}</td>
-            <td class="text-center"><img src="{{ asset('storage/'. $item->event_image) }}" alt="{{ $item->event_title }}" class="" height="100"></td>
-            <td class="text-center">{{ $item->event_title }}</td>
+            <td class="text-center"><img src="{{ asset('storage/'. $item->client_image) }}" alt="{{ $item->client_name }}" class="" height="100"></td>
+            <td class="text-center">{{ $item->client_name }}</td>
             @php
-               $item->event_date = date("d-m-Y H:i:s",strtotime($item->event_date))
+                $item->client_address = strip_tags($item->client_address);
             @endphp
-            <td class="text-center">{{ $item->event_date }}</td>
-            @php
-                $item->event_description = substr(strip_tags($item->event_description), 0, 100) . '...';
-            @endphp
-            <td class="text-center">{{ $item->event_description }}</td>
+            <td class="text-center">{{ $item->client_address }}</td>
+            
             <td class="text-center">
-              <a href="/admin-event-edit/{{ $item->id }}" class="badge badge-warning mr-2 ml-2 btn-edit border-0"><i class="fas fa-edit"></i>  Ubah</a>
-              <form action="/admin-event/{{ $item->id }}" method="POST" class="d-inline form-hapus" >
+              <a href="/admin-myclient-edit/{{ $item->id }}" class="badge badge-warning mr-2 ml-2 btn-edit border-0"><i class="fas fa-edit"></i>  Ubah</a>
+              <form action="/admin-myclient/{{ $item->id }}" method="POST" class="d-inline form-hapus" >
                 @method('delete')
                 @csrf
                 <input type="hidden" name="_method" >
@@ -58,50 +55,42 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="modalTambahLabel">Tambah Event</h5>
+            <h5 class="modal-title" id="modalTambahLabel">Tambah Klien</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
             </div>
-            <form action="/admin-event" method="POST" enctype="multipart/form-data">
+            <form action="/admin-myclient" method="POST" enctype="multipart/form-data">
               @csrf
             <div class="modal-body">
                 
                     <div class="form-group">
-                        <label for="event_title">Nama Event</label>
-                        <input type="text" class="form-control @error('event_title') is-invalid @enderror" id="event_title" name="event_title"  placeholder="Masukan nama event..." required value="{{ old('event_title') }}"> 
-                        @error('event_title')
+                        <label for="client_name">Nama Klien</label>
+                        <input type="text" class="form-control @error('client_name') is-invalid @enderror" id="client_name" name="client_name"  placeholder="Masukan nama klien..." required value="{{ old('client_name') }}"> 
+                        @error('client_name')
                             <div class="invalid-feedback">
                               {{ $message }}
                             </div>
                         @enderror         
                     </div>
                     <div class="form-group">
-                      <label>Tanggal</label>
-                        <div class="input-group date" id="event_date" data-target-input="nearest">
-                            <input type="text" name="event_date" class="form-control datetimepicker-input @error('event_date') is-invalid @enderror" data-target="#event_date" required value="{{ old('event_date') }}">
-                            <div class="input-group-append" data-target="#event_date" data-toggle="datetimepicker">
-                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                            </div>
-                        </div>
-                        @error('event_date')
+                        <label for="company_name">Perusahaan</label>
+                        <input type="text" class="form-control @error('company_name') is-invalid @enderror" id="company_name" name="company_name" required value="{{ old('company_name') }}"> 
+                        @error('company_name')
                             <div class="invalid-feedback">
                               {{ $message }}
                             </div>
-                        @enderror 
+                        @enderror         
                     </div>
-
                     <div class="form-group">
-                      <label for="event_image">Gambar Event</label>
-                      <input type="file" class="form-control" id="event_image" name="event_image" onchange="previewImage()">   
+                      <label for="client_image">Foto</label>
+                      <input type="file" class="form-control" id="client_image" name="client_image" onchange="previewImage()">   
                       <img id='imgPreview' class="mb-2 mb-md-4 shadow-1-strong rounded" style="cursor: zoom-in;" width="100" onClick="zoomImg()" />        
                     </div>
                     <div class="form-group">
-                      <label for="event_description">Deskripsi</label>
-                      <textarea class="form-control ckeditor" id="event_description" name="event_description">{{ old('event_description') }}</textarea>        
-                  </div>
-         
-                    
+                      <label for="client_address">Alamat</label>
+                      <textarea class="form-control ckeditor" id="client_address" name="client_address">{{ old('client_address') }}</textarea>        
+                    </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -117,7 +106,7 @@
 <script>
 
 $(document).ready(function () { 
-    let table_event = $('#table-event').DataTable({
+    let table_myclient = $('#table-myclient').DataTable({
       "paging": true,
       "lengthChange": true,
       "searching": true,
@@ -167,18 +156,11 @@ $(document).ready(function () {
         })
       });
 
-          //Date and time picker
-    $('#event_date').datetimepicker({ 
-      icons: { time: 'far fa-clock' },
-      format: 'DD-MM-YYYY HH:mm:ss',
-      locale: 'id',
-    });
-
 
   });
 
   function previewImage(){
-      const image = document.querySelector('#event_image');
+      const image = document.querySelector('#client_image');
       const imgPreview = document.querySelector('#imgPreview');
       const oFReader = new FileReader();
       oFReader.readAsDataURL(image.files[0]);

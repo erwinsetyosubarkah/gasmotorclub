@@ -24,9 +24,12 @@ class AdminProfileController extends Controller
             'club_name_abbreviation' => 'required',
             'club_logo' => 'image|file|max:2048',
             'email' => '',
+            'leader_name' => '',
+            'leader_email' => '',
             'phone' => '',
             'address' => '',
-            'description' => ''
+            'description' => '',
+            'short_description' => 'max:100'
         ]);
         
         //jika ada gambar baru
