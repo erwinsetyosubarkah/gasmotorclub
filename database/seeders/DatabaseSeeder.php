@@ -24,11 +24,14 @@ class DatabaseSeeder extends Seeder
          \App\Models\Profile::create([
             'club_name' => 'Gas Motor Club',
             'club_name_abbreviation' => 'GMC',
+            'leader_name' => 'Leader Name',
+            'leader_email' => 'leader@gmc.com',
             'email' => 'gmc@gmail.com',
             'phone' => '08756496xxx',
             'club_logo' => 'logo.jpg',
             'address' => 'alamat',
-            'description' => 'deskripsi'
+            'short_description' => 'deskripsi singkat',
+            'description' => 'deskripsi lengkap'
         ]);
 
          \App\Models\Visidanmisi::create([
@@ -43,7 +46,7 @@ class DatabaseSeeder extends Seeder
             'password' => '$2y$10$Slknqz..I3.nHDRpcWbpr.byVymwHfFznsM6DWQvA/qNrTBlI3x7K',
             'level' => 'author'
         ]);
-        
+
         \App\Models\User::factory()->create([
             'name' => 'Administrator',
             'username' => 'admin',
