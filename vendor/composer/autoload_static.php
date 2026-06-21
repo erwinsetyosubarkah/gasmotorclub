@@ -145,10 +145,6 @@ class ComposerStaticInit6af3ef76e68376ff378c65bff8914c9e
             'Laravel\\Sail\\' => 13,
             'Laravel\\Prompts\\' => 16,
         ),
-        'J' =>
-        array (
-            'JasonGuru\\LaravelMakeRepository\\' => 32,
-        ),
         'I' =>
         array (
             'Illuminate\\Support\\' => 19,
@@ -479,10 +475,6 @@ class ComposerStaticInit6af3ef76e68376ff378c65bff8914c9e
         array (
             0 => __DIR__ . '/..' . '/laravel/prompts/src',
         ),
-        'JasonGuru\\LaravelMakeRepository\\' =>
-        array (
-            0 => __DIR__ . '/..' . '/jason-guru/laravel-make-repository/src',
-        ),
         'Illuminate\\Support\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Macroable',
@@ -629,6 +621,8 @@ class ComposerStaticInit6af3ef76e68376ff378c65bff8914c9e
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
+        'App\\Repositories\\ArtikelRepository' => __DIR__ . '/../..' . '/app/Repositories/ArtikelRepository.php',
+        'App\\Repositories\\Contracts\\ArtikelRepositoryInterface' => __DIR__ . '/../..' . '/app/Repositories/Contracts/ArtikelRepositoryInterface.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Brick\\Math\\BigDecimal' => __DIR__ . '/..' . '/brick/math/src/BigDecimal.php',
         'Brick\\Math\\BigInteger' => __DIR__ . '/..' . '/brick/math/src/BigInteger.php',
@@ -3199,11 +3193,6 @@ class ComposerStaticInit6af3ef76e68376ff378c65bff8914c9e
         'Illuminate\\View\\ViewFinderInterface' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewFinderInterface.php',
         'Illuminate\\View\\ViewName' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewName.php',
         'Illuminate\\View\\ViewServiceProvider' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewServiceProvider.php',
-        'JasonGuru\\LaravelMakeRepository\\Exceptions\\GeneralException' => __DIR__ . '/..' . '/jason-guru/laravel-make-repository/src/Exceptions/GeneralException.php',
-        'JasonGuru\\LaravelMakeRepository\\MakeRepository' => __DIR__ . '/..' . '/jason-guru/laravel-make-repository/src/MakeRepository.php',
-        'JasonGuru\\LaravelMakeRepository\\RepositoryServiceProvider' => __DIR__ . '/..' . '/jason-guru/laravel-make-repository/src/RepositoryServiceProvider.php',
-        'JasonGuru\\LaravelMakeRepository\\Repository\\BaseRepository' => __DIR__ . '/..' . '/jason-guru/laravel-make-repository/src/Repository/BaseRepository.php',
-        'JasonGuru\\LaravelMakeRepository\\Repository\\RepositoryContract' => __DIR__ . '/..' . '/jason-guru/laravel-make-repository/src/Repository/RepositoryContract.php',
         'Laravel\\Prompts\\AutoCompletePrompt' => __DIR__ . '/..' . '/laravel/prompts/src/AutoCompletePrompt.php',
         'Laravel\\Prompts\\Clear' => __DIR__ . '/..' . '/laravel/prompts/src/Clear.php',
         'Laravel\\Prompts\\Concerns\\Colors' => __DIR__ . '/..' . '/laravel/prompts/src/Concerns/Colors.php',

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6168d58ce2e60c1b8fd0f5f61418dda6",
+    "content-hash": "84c8a6a1f9872cc9e0741b76ab81eb2e",
     "packages": [
         {
             "name": "brick/math",
@@ -6446,67 +6446,6 @@
                 "source": "https://github.com/hamcrest/hamcrest-php/tree/v2.1.1"
             },
             "time": "2025-04-30T06:54:44+00:00"
-        },
-        {
-            "name": "jason-guru/laravel-make-repository",
-            "version": "v1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jason-guru/laravel-make-repository.git",
-                "reference": "3b414158646840a9318fef8905e34076bd4374c1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jason-guru/laravel-make-repository/zipball/3b414158646840a9318fef8905e34076bd4374c1",
-                "reference": "3b414158646840a9318fef8905e34076bd4374c1",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/console": "^10.0 || ^11.0 || ^12.0 || ^13.0",
-                "illuminate/database": "^10.0 || ^11.0 || ^12.0 || ^13.0",
-                "illuminate/support": "^10.0 || ^11.0 || ^12.0 || ^13.0",
-                "php": "^8.1"
-            },
-            "require-dev": {
-                "orchestra/testbench": "^8.0 || ^9.0 || ^10.0 || ^11.0",
-                "phpunit/phpunit": "^10.5 || ^11.0 || ^12.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "JasonGuru\\LaravelMakeRepository\\RepositoryServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "JasonGuru\\LaravelMakeRepository\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "G Jason Sharma",
-                    "email": "g.jason.sharma@gmail.com"
-                }
-            ],
-            "description": "A simple package to create a make:repository command for Laravel 10, 11, and 12.",
-            "keywords": [
-                "command",
-                "eloquent",
-                "laravel",
-                "make",
-                "repository"
-            ],
-            "support": {
-                "issues": "https://github.com/jason-guru/laravel-make-repository/issues",
-                "source": "https://github.com/jason-guru/laravel-make-repository/tree/v1.0.0"
-            },
-            "time": "2026-06-01T11:04:48+00:00"
         },
         {
             "name": "laravel/pint",

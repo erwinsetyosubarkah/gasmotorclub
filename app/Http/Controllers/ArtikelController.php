@@ -2,33 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
-use App\Models\Profile;
-use Illuminate\Http\Request;
+use App\Http\Requests\ArtikelIndexRequest;
+use App\Http\Requests\ArtikelShowRequest;
+use App\Repositories\Contracts\ArtikelRepositoryInterface;
 
 class ArtikelController extends Controller
 {
-    public function index() {
 
-        $artikels = Post::latest();
+    private Object $artikelRepository;
 
-        if(request('search')){
-            $artikels->where('title','like', '%' . request('search') . '%');
-        }
-
-        return view('artikel',[
-            'page_title' => 'Artikel',
-            'profile' => Profile::first(),
-            'artikels' => $artikels->paginate(5)
-        ]);
+    public function __construct(ArtikelRepositoryInterface $artikelRepository)
+    {
+        $this->artikelRepository = $artikelRepository;
     }
 
-    public function show(Post $artikel) {
-     
-        return view('artikelsingle',[
-            'page_title' => 'Artikel',
-            'profile' => Profile::first(),
-            'artikel' => Post::find($artikel->id)
-        ]);
+    public function index(ArtikelIndexRequest $request) {
+
+        $validatedData = $request->validated();
+        $latestArtikels = $this->artikelRepository->latest($validatedData);
+
+        return view('artikel',$latestArtikels);
+    }
+
+    public function show(ArtikelShowRequest $request) {
+
+        $validatedData = $request->validated();
+        $singleArtikel = $this->artikelRepository->show($validatedData);
+        return view('artikelsingle', $singleArtikel);
     }
 }
