@@ -2,8 +2,10 @@
 
 namespace Illuminate\Cache\Console;
 
+use BadMethodCallException;
 use Illuminate\Cache\CacheManager;
 use Illuminate\Console\Command;
+use Illuminate\Console\Prohibitable;
 use Illuminate\Filesystem\Filesystem;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -12,23 +14,14 @@ use Symfony\Component\Console\Input\InputOption;
 #[AsCommand(name: 'cache:clear')]
 class ClearCommand extends Command
 {
+    use Prohibitable;
+
     /**
      * The console command name.
      *
      * @var string
      */
     protected $name = 'cache:clear';
-
-    /**
-     * The name of the console command.
-     *
-     * This name is used to identify the command during lazy loading.
-     *
-     * @var string|null
-     *
-     * @deprecated
-     */
-    protected static $defaultName = 'cache:clear';
 
     /**
      * The console command description.
@@ -56,7 +49,6 @@ class ClearCommand extends Command
      *
      * @param  \Illuminate\Cache\CacheManager  $cache
      * @param  \Illuminate\Filesystem\Filesystem  $files
-     * @return void
      */
     public function __construct(CacheManager $cache, Filesystem $files)
     {
@@ -69,10 +61,18 @@ class ClearCommand extends Command
     /**
      * Execute the console command.
      *
-     * @return void
+     * @return int
      */
     public function handle()
     {
+        if ($this->isProhibited()) {
+            return self::FAILURE;
+        }
+
+        if ($this->option('locks')) {
+            return $this->clearLocks();
+        }
+
         $this->laravel['events']->dispatch(
             'cache:clearing', [$this->argument('store'), $this->tags()]
         );
@@ -82,7 +82,9 @@ class ClearCommand extends Command
         $this->flushFacades();
 
         if (! $successful) {
-            return $this->components->error('Failed to clear cache. Make sure you have the appropriate permissions.');
+            $this->components->error('Failed to clear cache. Make sure you have the appropriate permissions.');
+
+            return self::FAILURE;
         }
 
         $this->laravel['events']->dispatch(
@@ -90,6 +92,40 @@ class ClearCommand extends Command
         );
 
         $this->components->info('Application cache cleared successfully.');
+
+        return self::SUCCESS;
+    }
+
+    /**
+     * Clear all locks from the cache store.
+     *
+     * @return int
+     */
+    protected function clearLocks()
+    {
+        if (! empty($this->tags())) {
+            $this->components->error('Cache tags cannot be used when clearing locks.');
+
+            return self::FAILURE;
+        }
+
+        try {
+            $successful = $this->cache()->flushLocks();
+        } catch (BadMethodCallException) {
+            $this->components->error('This cache store does not support clearing locks.');
+
+            return self::FAILURE;
+        }
+
+        if (! $successful) {
+            $this->components->error('Failed to clear cache locks. Make sure you have the appropriate permissions.');
+
+            return self::FAILURE;
+        }
+
+        $this->components->info('Application cache locks cleared successfully.');
+
+        return self::SUCCESS;
     }
 
     /**
@@ -153,6 +189,7 @@ class ClearCommand extends Command
     {
         return [
             ['tags', null, InputOption::VALUE_OPTIONAL, 'The cache tags you would like to clear', null],
+            ['locks', null, InputOption::VALUE_NONE, 'Only clear cache locks'],
         ];
     }
 }

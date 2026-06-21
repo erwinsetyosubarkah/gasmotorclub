@@ -3,28 +3,20 @@
 namespace Illuminate\Queue\Console;
 
 use Illuminate\Console\Command;
+use Illuminate\Console\Prohibitable;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 #[AsCommand(name: 'queue:flush')]
 class FlushFailedCommand extends Command
 {
+    use Prohibitable;
+
     /**
      * The console command name.
      *
      * @var string
      */
     protected $signature = 'queue:flush {--hours= : The number of hours to retain failed job data}';
-
-    /**
-     * The name of the console command.
-     *
-     * This name is used to identify the command during lazy loading.
-     *
-     * @var string|null
-     *
-     * @deprecated
-     */
-    protected static $defaultName = 'queue:flush';
 
     /**
      * The console command description.
@@ -40,6 +32,10 @@ class FlushFailedCommand extends Command
      */
     public function handle()
     {
+        if ($this->isProhibited()) {
+            return;
+        }
+
         $this->laravel['queue.failer']->flush($this->option('hours'));
 
         if ($this->option('hours')) {

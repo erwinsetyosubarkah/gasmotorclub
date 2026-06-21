@@ -46,7 +46,6 @@ class CallbackEvent extends Event
      * @param  string|callable  $callback
      * @param  array  $parameters
      * @param  \DateTimeZone|string|null  $timezone
-     * @return void
      *
      * @throws \InvalidArgumentException
      */
@@ -129,12 +128,14 @@ class CallbackEvent extends Event
     /**
      * Do not allow the event to overlap each other.
      *
+     * The expiration time of the underlying cache lock may be specified in minutes.
+     *
      * @param  int  $expiresAt
      * @return $this
      *
      * @throws \LogicException
      */
-    public function withoutOverlapping($expiresAt = 1440)
+    public function withoutOverlapping($expiresAt = 1440, $releaseOnTerminationSignals = true)
     {
         if (! isset($this->description)) {
             throw new LogicException(
@@ -142,7 +143,7 @@ class CallbackEvent extends Event
             );
         }
 
-        return parent::withoutOverlapping($expiresAt);
+        return parent::withoutOverlapping($expiresAt, $releaseOnTerminationSignals);
     }
 
     /**

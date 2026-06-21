@@ -28,17 +28,19 @@ class AdminLoginController extends Controller
             return redirect()->intended('/');
         }else{
             Alert::error('Gagal!', 'Login Gagal');
-            return view('admin/login');
+            return view('admin/login',[
+                'site_profile' => Profile::first()
+            ]);
         }
     }
 
     public function logout(Request $request){
         Auth::logout();
- 
+
         $request->session()->invalidate();
-     
+
         $request->session()->regenerateToken();
-     
+
         return redirect('/');
     }
 }

@@ -18,17 +18,6 @@ class UpCommand extends Command
     protected $name = 'up';
 
     /**
-     * The name of the console command.
-     *
-     * This name is used to identify the command during lazy loading.
-     *
-     * @var string|null
-     *
-     * @deprecated
-     */
-    protected static $defaultName = 'up';
-
-    /**
      * The console command description.
      *
      * @var string
@@ -59,6 +48,8 @@ class UpCommand extends Command
 
             $this->components->info('Application is now live.');
         } catch (Exception $e) {
+            report($e);
+
             $this->components->error(sprintf(
                 'Failed to disable maintenance mode: %s.',
                 $e->getMessage(),
