@@ -50,11 +50,10 @@ class AdminPostRepository implements AdminPostRepositoryInterface
 
     public function showEdit(object $data)
     {
-        $post = Post::find($data->post_id);
         $categories = Category::all();
         return [
             'page_title' => 'Ubah Artikel',
-            'post' => $post,
+            'post' => $data,
             'categories' => $categories
         ];
     }

@@ -3,6 +3,9 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminPostEditRequest extends FormRequest
 {
@@ -39,4 +42,19 @@ class AdminPostEditRequest extends FormRequest
             'post_image.max'        => 'Foto maksimal berukuran 2 Mb'
         ];
     }
+
+    protected function failedValidation(Validator $validator)
+    {
+        // 1. Ambil semua error dan gabungkan kalimatnya
+        $allErrors = implode('<br>', $validator->errors()->all());
+
+        // 2. Set notifikasi SweetAlert ke Session
+        Alert::html('Validasi Gagal!', $allErrors, 'error');
+
+        // 3. Lanjutkan redirect back bawaan Laravel dengan membawa error instansi
+        throw new HttpResponseException(
+            redirect()->back()->withInput()->withErrors($validator)
+        );
+    }
+
 }

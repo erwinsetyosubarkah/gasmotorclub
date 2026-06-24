@@ -3,6 +3,9 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminPostStoreRequest extends FormRequest
 {
@@ -17,11 +20,11 @@ class AdminPostStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'  => 'required|min:5',
-            'category_id' => 'required',
-            'slug' => 'required|min:5|unique:posts',
-            'body' => 'required',
-            'post_image' => 'image|file|max:2048|required'
+            'title'         => 'required|min:5',
+            'category_id'   => 'required',
+            'slug'          => 'required|min:5|unique:posts',
+            'body'          => 'required',
+            'post_image'    => 'image|file|max:2048|required'
         ];
     }
 
@@ -40,5 +43,19 @@ class AdminPostStoreRequest extends FormRequest
             'post_image.max'        => 'Foto maksimal berukuran 2 Mb',
             'post_image.required'   => 'Foto wajib diisi'
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        // 1. Ambil semua error dan gabungkan kalimatnya
+        $allErrors = implode('<br>', $validator->errors()->all());
+
+        // 2. Set notifikasi SweetAlert ke Session
+        Alert::html('Validasi Gagal!', $allErrors, 'error');
+
+        // 3. Lanjutkan redirect back bawaan Laravel dengan membawa error instansi
+        throw new HttpResponseException(
+            redirect()->back()->withInput()->withErrors($validator)
+        );
     }
 }
