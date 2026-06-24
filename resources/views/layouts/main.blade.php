@@ -46,7 +46,7 @@
                     <div class="widget mb-5 mb-lg-0">
                         <div class="logo mb-4">
                             <img src="{{ asset('storage/'. $site_profile->club_logo) }}" alt="" class="" height="100"> <span class="font-weight-bold" >{{ $site_profile->club_name }}</span>
-                            
+
                         </div>
                         {!! $site_profile->short_description !!}
 
@@ -63,10 +63,10 @@
                         <h4 class="text-capitalize mb-3">Kategori Artikel</h4>
                         <div class="divider mb-4"></div>
 
-                        <ul class="list-unstyled footer-menu lh-35">       
-                            @foreach ($categories as $item)                                
+                        <ul class="list-unstyled footer-menu lh-35">
+                            @foreach ($categories as $item)
                                 <li><a href="#">{{ $item->category_name }} </a></li>
-                            @endforeach                     
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -77,9 +77,9 @@
                         <div class="divider mb-4"></div>
 
                         <ul class="list-unstyled footer-menu lh-35">
-                            @foreach ($events as $item)                                
+                            @foreach ($events as $item)
                                 <li><a href="#">{{ $item->event_title }} </a></li>
-                            @endforeach 
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -107,7 +107,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="footer-btm py-4 mt-5">
                 <div class="row align-items-center justify-content-between">
                     <div class="col-lg-6">
@@ -136,13 +136,13 @@
         </div>
     </footer>
 
-   
 
-    <!-- 
+
+    <!--
     Essential Scripts
     =====================================-->
 
-    
+
     <!-- Main jQuery -->
     <script src="{{ asset('/') }}vendor/novena/plugins/jquery/jquery.js"></script>
     <!-- Bootstrap 4.3.2 -->
@@ -153,20 +153,20 @@
     <script src="{{ asset('/') }}vendor/novena/plugins/slick-carousel/slick/slick.min.js"></script>
     <!-- Counterup -->
     <script src="{{ asset('/') }}vendor/novena/plugins/counterup/jquery.waypoints.min.js"></script>
-    
+
     <script src="{{ asset('/') }}vendor/novena/plugins/shuffle/shuffle.min.js"></script>
     <script src="{{ asset('/') }}vendor/novena/plugins/counterup/jquery.counterup.min.js"></script>
     <!-- Google Map -->
     <script src="{{ asset('/') }}vendor/novena/plugins/google-map/map.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap"></script>    
-    
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap"></script>
+
     <script src="{{ asset('/') }}vendor/novena/js/script.js"></script>
     <script src="{{ asset('/') }}vendor/novena/js/contact.js"></script>
     @include('sweetalert::alert')
     <script src="{{ asset('/') }}vendor/sweetalert/sweetalert.all.js"></script>
     <script src="{{ asset('/') }}vendor/ckeditor5/ckeditor.js"></script>
     <script>
-        $(document).ready(function () {      
+        $(document).ready(function () {
             ClassicEditor
             .create( document.querySelector( '.ckeditor' ), {
                 // toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
@@ -210,7 +210,6 @@
             });
         }
     </script>
-    @yield('script') 
+    @yield('script')
   </body>
   </html>
-   

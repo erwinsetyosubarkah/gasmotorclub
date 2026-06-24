@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ArtikelIndexRequest;
-use App\Http\Requests\ArtikelShowRequest;
+use App\Models\Post;
 use App\Repositories\Contracts\ArtikelRepositoryInterface;
 
 class ArtikelController extends Controller
@@ -24,10 +24,8 @@ class ArtikelController extends Controller
         return view('artikel',$latestArtikels);
     }
 
-    public function show(ArtikelShowRequest $request) {
-
-        $validatedData = $request->validated();
-        $singleArtikel = $this->artikelRepository->show($validatedData);
+    public function show(Post $artikel) {
+        $singleArtikel = $this->artikelRepository->show(["id" => $artikel->id]);
         return view('artikelsingle', $singleArtikel);
     }
 }

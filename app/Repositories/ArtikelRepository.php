@@ -22,7 +22,7 @@ class ArtikelRepository implements ArtikelRepositoryInterface
         return [
             'page_title' => 'Artikel',
             'profile' => $profile,
-            'artikels' => $artikels->paginate(5)
+            'artikels' => $artikels->paginate(6)
         ];
     }
 
