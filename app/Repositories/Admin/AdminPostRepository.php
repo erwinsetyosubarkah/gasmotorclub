@@ -12,7 +12,8 @@ class AdminPostRepository implements AdminPostRepositoryInterface
 {
     public function all()
     {
-        $posts = Post::all();
+        $user = auth()->user();
+        $posts = Post::where('user_id',$user->id)->get();
         $categories = Category::all();
         return [
             'page_title' => 'Artikel',
@@ -77,6 +78,19 @@ class AdminPostRepository implements AdminPostRepositoryInterface
         Post::where('id',$post->id)
                     ->update($data);
         Alert::success('Berhasil', 'Data artikel berhasil diubah !');
+    }
+
+    public function findPost(string|int $identifier)
+    {
+        if (is_int($identifier)) {
+            // find by ID
+            return Post::find($identifier);
+        }
+
+        if (is_string($identifier)) {
+            // find by title
+            return Post::where('title', 'LIKE', "%{$identifier}%")->get();
+        }
     }
 
 }

@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Galery;
-use Illuminate\Http\Request;
+use App\Models\Post;
+use App\Models\Profile;
 
 class HomeController extends Controller
 {
     public function index() {
         return view('home',[
-            'galeries' => Galery::all()
+            'articles' => Post::latest()->take(3)->get(),
+            'galeries' => Galery::all(),
+            'profile'  => Profile::first()
         ]);
     }
 }
