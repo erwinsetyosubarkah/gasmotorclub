@@ -8,8 +8,20 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use RealRashid\SweetAlert\Facades\Alert;
 
+/**
+ * Summary of AdminPostRepository
+ */
 class AdminPostRepository implements AdminPostRepositoryInterface
 {
+
+    /**
+     * Summary of all
+     * @return array{
+     * categories: \Illuminate\Database\Eloquent\Collection<int, Category>,
+     * page_title: string,
+     * posts: \Illuminate\Database\Eloquent\Collection<int, Post>|\Illuminate\Support\Collection<int, \stdClass>
+     * }
+     */
     public function all()
     {
         $user = auth()->user();
@@ -22,6 +34,16 @@ class AdminPostRepository implements AdminPostRepositoryInterface
         ];
     }
 
+    /**
+     * Summary of store
+     * @param array $data
+     * @param object $request
+     * @return array{
+     * categories: \Illuminate\Database\Eloquent\Collection<int, Category>,
+     * page_title: string,
+     * posts: \Illuminate\Database\Eloquent\Collection<int, Post>
+     * }
+     */
     public function store(array $data, object $request)
     {
         //get user id login
@@ -42,13 +64,28 @@ class AdminPostRepository implements AdminPostRepositoryInterface
         ];
     }
 
+    /**
+     * Summary of destroy
+     * @param object $data
+     * @return array
+     */
     public function destroy(object $data)
     {
         Storage::delete($data->post_image);
         Post::destroy($data->id);
         Alert::success('Berhasil', 'Data artikel berhasil dihapus !');
+        return [];
     }
 
+    /**
+     * Summary of showEdit
+     * @param object $data
+     * @return array{
+     * categories: \Illuminate\Database\Eloquent\Collection<int, Category>,
+     * page_title: string,
+     * post: object
+     * }
+     */
     public function showEdit(object $data)
     {
         $categories = Category::all();
@@ -59,6 +96,13 @@ class AdminPostRepository implements AdminPostRepositoryInterface
         ];
     }
 
+    /**
+     * Summary of edit
+     * @param array $data
+     * @param object $post
+     * @param object $request
+     * @return array
+     */
     public function edit(array $data, object $post, object $request)
     {
         //get user id login
@@ -78,8 +122,14 @@ class AdminPostRepository implements AdminPostRepositoryInterface
         Post::where('id',$post->id)
                     ->update($data);
         Alert::success('Berhasil', 'Data artikel berhasil diubah !');
+        return [];
     }
 
+    /**
+     * Summary of findPost
+     * @param string|int $identifier
+     * @return Post|\Illuminate\Database\Eloquent\Builder<Post>|\Illuminate\Database\Eloquent\Collection<int, Post>|\Illuminate\Support\Collection<int, \stdClass>
+     */
     public function findPost(string|int $identifier)
     {
         if (is_int($identifier)) {
@@ -91,6 +141,8 @@ class AdminPostRepository implements AdminPostRepositoryInterface
             // find by title
             return Post::where('title', 'LIKE', "%{$identifier}%")->get();
         }
+
+        return Post::whereRaw("1!=1")->get();
     }
 
 }

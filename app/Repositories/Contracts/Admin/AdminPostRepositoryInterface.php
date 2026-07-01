@@ -2,15 +2,11 @@
 
 namespace App\Repositories\Contracts\Admin;
 
-interface AdminPostRepositoryInterface
+use App\Repositories\Contracts\Admin\CrudInterface;
+
+/**
+ * Summary of AdminPostRepositoryInterface
+ */
+interface AdminPostRepositoryInterface extends CrudInterface
 {
-    public function all();
-    public function store(array $data, object $request);
-
-    public function destroy(object $data);
-
-    public function showEdit(object $data);
-
-    public function edit(array $data, object $post, object $request);
-
 }
